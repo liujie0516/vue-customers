@@ -13,8 +13,8 @@ Vue.use(VueRouter)
 //设置路由
 const router=new VueRouter({
   mode:"history",
-  bses:__dirname,
-  routers:[
+  bses:__dirname,  //当前路径
+  routes:[
     {path:'/',component:Customers},
     {path:'/about',component:About}
   ]
