@@ -5,6 +5,7 @@ import App from './App'
 import VueRouter from 'vue-router'
 import Customers from './components/Customers'
 import About from './components/About'
+import Add from './components/Add'
 
 Vue.config.productionTip = false
 
@@ -16,7 +17,8 @@ const router=new VueRouter({
   bses:__dirname,  //当前路径
   routes:[
     {path:'/',component:Customers},
-    {path:'/about',component:About}
+    {path:'/about',component:About},
+    {path:'/add',component:Add}
   ]
 })
 
@@ -41,6 +43,9 @@ new Vue({
               <li><router-link to='/'>主页</router-link></li>
               <li><router-link to='/about'>关于我们</router-link></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <li><router-link to='/add'>添加用户</router-link></li>
+          </ul>
           </div><!--/.nav-collapse -->
         </div>
       </nav>
