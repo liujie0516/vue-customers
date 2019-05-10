@@ -1,6 +1,6 @@
 <template>
   <div class="about container">
-    about
+   <h1 class="page-header">希望提供给大家更好的用户体验！</h1>
   </div>
 </template>
 

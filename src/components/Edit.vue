@@ -1,8 +1,8 @@
 <template>
-  <div class="add container">
+  <div class="edit container">
     <Alert v-if="alert" v-bind:message="alert"></Alert>
     <h1 class="page-header">添加用户</h1>
-    <form v-on:submit="addCustomer">
+    <form v-on:submit="updateCustomer">
        <div class="well">
          <h4>用户信息</h4>
          <div class="form-group">
@@ -40,23 +40,30 @@
 </template>
 
 <script>
-import Alert from './Alert'
 import axios from "axios"
+import Alert from './Alert'
 export default {
-  name: 'add',
+  name: 'edit',
   data () {
     return {
-    customer:{} ,
+    customer:{},
     alert:""
     }
   },
   methods:{
-    addCustomer(e){
+    fetchCustomer(id){
+      axios.get("http://localhost:3000/users/"+id).then(
+        response=>{
+          this.customer=response.data;
+        }
+      )
+    },
+    updateCustomer(e){
       if(!this.customer.name||!this.customer.phone||!this.customer.email){
         // console.log("请添加对应信息！")
         this.alert="请添加对应信息！"
       }else{
-        let newCustomer={
+        let updateCustomer={
             name:this.customer.name,
             phone:this.customer.phone,
             email:this.customer.email,
@@ -65,8 +72,8 @@ export default {
             profession:this.customer.profession,
             profile:this.customer.profile
           } ;
-       axios.post("http://localhost:3000/users",newCustomer).then(response=>{         
-           this.$router.push({path:"/",query:{alert:"用户信息添加成功！"}})              
+       axios.put("http://localhost:3000/users/"+this.$route.params.id,updateCustomer).then(response=>{         
+           this.$router.push({path:"/",query:{alert:"用户信息更改成功！"}})              
         })
            e.preventDefault();
       }
@@ -74,7 +81,9 @@ export default {
       e.preventDefault();
     }
   },
-  components:{Alert}
+  created(){
+    this.fetchCustomer(this.$route.params.id)
+  }
 }
 </script>
 
